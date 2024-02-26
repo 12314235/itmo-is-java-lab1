@@ -11,6 +11,6 @@ public class CentralBankService {
     }
 
     public void ProcessTransaction(Transaction transaction) {
-
+        transaction.Execute();
     }
 }

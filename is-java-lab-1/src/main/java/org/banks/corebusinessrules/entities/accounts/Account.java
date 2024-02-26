@@ -14,14 +14,17 @@ public abstract class Account {
     final private Long bankId;
     final private long id;
     final private Client owner;
+    private BigDecimal balance;
 
     public Account(Long bankId, long id, Client owner) {
         this.bankId = bankId;
         this.id = id;
         this.owner = owner;
+        this.balance = new BigDecimal("0.0");
     }
 
     public PaymentOrder Withdraw(BigDecimal amount) {
+        balance = balance.subtract(amount);
         return new PaymentOrder(
                 new WithdrawTransactionBuilder(),
                 this.bankId,
@@ -33,6 +36,7 @@ public abstract class Account {
     }
 
     public PaymentOrder Refill(BigDecimal amount) {
+        balance = balance.add(amount);
         return new PaymentOrder(
                 new RefillTransactionBuilder(),
                 this.bankId,
@@ -44,6 +48,7 @@ public abstract class Account {
     }
 
     public PaymentOrder Transfer(BigDecimal amount, long bankId, long accountId) {
+        balance = balance.subtract(amount);
         return new PaymentOrder(
                 new WithdrawTransactionBuilder(),
                 this.bankId,
