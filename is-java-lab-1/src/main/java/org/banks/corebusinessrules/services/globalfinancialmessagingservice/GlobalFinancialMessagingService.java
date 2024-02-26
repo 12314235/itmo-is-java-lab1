@@ -17,11 +17,12 @@ public class GlobalFinancialMessagingService {
 
     public void ProcessPaymentOrder(PaymentOrder order) {
         TransactionBuilder builder = order.transactionBuilder();
-        Bank bankReceiver = bankRepository.GetBankById(order.bankId());
+        Bank bankReceiver = bankRepository.GetBankById(order.receiverBankId());
+        Bank bankSender = bankRepository.GetBankById(order.senderBankId());
 
         centralBank.ProcessTransaction(builder.WithAmount(order.amount())
-                .WithSender(order.senderAccount())
-                .WithReceiver(bankReceiver.GetAccountById(order.accountId()))
+                .WithSender(bankSender, order.senderAccountId())
+                .WithReceiver(bankReceiver, order.receiverAccountId())
                 .Build());
     }
 }

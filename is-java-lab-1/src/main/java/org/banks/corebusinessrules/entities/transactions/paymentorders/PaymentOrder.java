@@ -6,5 +6,5 @@ import org.banks.corebusinessrules.entities.transactions.builders.TransactionBui
 
 import java.math.BigDecimal;
 
-public record PaymentOrder(TransactionBuilder transactionBuilder, Account senderAccount, Long bankId, Long accountId, BigDecimal amount) {
+public record PaymentOrder(TransactionBuilder transactionBuilder, Long senderBankId, Long senderAccountId, Long receiverBankId, Long receiverAccountId, BigDecimal amount) {
 }

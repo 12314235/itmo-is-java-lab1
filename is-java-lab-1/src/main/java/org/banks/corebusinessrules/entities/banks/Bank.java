@@ -11,7 +11,5 @@ public class Bank {
         this.id = id;
     }
 
-    public Account GetAccountById(long id) {
-        return null;
-    }
+
 }
