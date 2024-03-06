@@ -8,7 +8,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 @RequiredArgsConstructor
-public class BankService {
+public class BankServiceConsole {
     private final TimeManager timeManager;
     private final Bank bank;
     private UUID accountId;
