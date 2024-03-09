@@ -5,6 +5,7 @@ import org.banks.corebusinessrules.accounts.Account;
 import org.banks.corebusinessrules.exceptions.FaultTransactionException;
 
 import java.util.Optional;
+import java.util.UUID;
 
 /**
  * Represents a transaction between two accounts.
@@ -12,6 +13,7 @@ import java.util.Optional;
  */
 @Data
 public abstract class Transaction {
+    final protected UUID transactionId;
     /**
      * The receiver account of the transaction.
      */
