@@ -1,6 +1,5 @@
 package org.banks.corebusinessrules.accounts;
 
-import lombok.Builder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
@@ -17,6 +16,9 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+/**
+ * Abstract class representing an account in a bank.
+ */
 @ToString
 public abstract class Account implements TimeManagerObserver, BankTermsListener {
     @Getter
@@ -29,6 +31,17 @@ public abstract class Account implements TimeManagerObserver, BankTermsListener 
     private final VerificationStrategy verificationStrategy;
     protected PercentageStrategy percentage;
 
+    /**
+     * Constructs a new Account instance with the specified parameters.
+     *
+     * @param id                   The unique identifier of the account.
+     * @param currentTime          The current time of the account.
+     * @param owner                The owner of the account.
+     * @param password             The password for the account.
+     * @param limit                The limit for the account operations.
+     * @param verificationStrategy The verification strategy for the account operations.
+     * @param percentage           The percentage strategy for the account.
+     */
     public Account(UUID id, LocalDateTime currentTime, Client owner, String password, BigDecimal limit, VerificationStrategy verificationStrategy, PercentageStrategy percentage) {
         this.id = id;
         this.currentTime = currentTime;
@@ -39,46 +52,92 @@ public abstract class Account implements TimeManagerObserver, BankTermsListener 
         this.percentage = percentage;
     }
 
+    /**
+     * Refills the balance of the account by the specified amount.
+     *
+     * @param amount The amount to refill the balance with.
+     * @return An AccountOperationResult indicating the result of the refill operation.
+     * @throws FaultTransactionException If the refill operation fails.
+     */
     public AccountOperationResult RefillBalance(BigDecimal amount) throws FaultTransactionException {
         if (verificationStrategy.IsVerificatedOperation(this.limit, amount)) {
             balance = balance.add(amount);
-
-            return new AccountOperationResult(this.id, "Succesully refilled balance.", ResultStatus.Success);
+            return new AccountOperationResult(this.id, "Successfully refilled balance.", ResultStatus.Success);
         } else {
             throw new FaultTransactionException("Refill transaction fault account: " + this.toString());
         }
     }
 
+    /**
+     * Withdraws the balance from the account by the specified amount.
+     *
+     * @param amount The amount to withdraw from the balance.
+     * @return An AccountOperationResult indicating the result of the withdraw operation.
+     * @throws FaultTransactionException If the withdraw operation fails.
+     */
     public AccountOperationResult WithdrawBalance(BigDecimal amount) throws FaultTransactionException {
         if (verificationStrategy.IsVerificatedOperation(this.limit, amount)) {
             balance = balance.subtract(amount);
-
-            return new AccountOperationResult(this.id, "Succesully withdrawed balance.", ResultStatus.Success);
+            return new AccountOperationResult(this.id, "Successfully withdrew balance.", ResultStatus.Success);
         } else {
             throw new FaultTransactionException("Withdraw transaction fault account: " + this.toString());
         }
     }
 
+    /**
+     * Checks if the provided password matches the account's password.
+     *
+     * @param password The password to check.
+     * @return true if the password matches, false otherwise.
+     */
     public boolean CheckPassword(String password) {
         return this.password.equals(password);
     }
 
+    /**
+     * Takes a snapshot of the account's current state.
+     *
+     * @return An AccountMemento representing the snapshot of the account.
+     */
     public AccountMemento TakeSnapshot() {
         return new AccountMemento(this.balance);
     }
 
+    /**
+     * Restores the account's state from a given snapshot.
+     *
+     * @param memento The AccountMemento to restore the state from.
+     */
     public void Restore(AccountMemento memento) {
         this.balance = memento.balance;
     }
 
+    /**
+     * Updates the balance of the account based on the percentage strategy.
+     */
     protected void UpdateBalance() {
         this.balance = this.percentage.DoPercentageCalculations(this.balance);
     }
 
+    /**
+     * Checks if it's possible to refill the account balance by the specified amount.
+     *
+     * @param amount The amount to check for refill possibility.
+     * @return true if refill is possible, false otherwise.
+     */
     public abstract boolean IsRefillPossible(BigDecimal amount);
 
+    /**
+     * Checks if it's possible to withdraw the account balance by the specified amount.
+     *
+     * @param amount The amount to check for withdraw possibility.
+     * @return true if withdraw is possible, false otherwise.
+     */
     public abstract boolean IsWithdrawPossible(BigDecimal amount);
 
+    /**
+     * Inner class representing a memento for storing the account's state.
+     */
     @RequiredArgsConstructor
     public class AccountMemento {
         private final BigDecimal balance;

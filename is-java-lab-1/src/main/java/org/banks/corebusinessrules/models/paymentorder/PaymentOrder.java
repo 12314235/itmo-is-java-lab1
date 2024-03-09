@@ -5,6 +5,9 @@ import org.banks.corebusinessrules.services.transactions.builders.TransactionBui
 import java.math.BigDecimal;
 import java.util.UUID;
 
+/**
+ * Represents PaymentOrder for GlobalFinancialMessagingService for creating an instance of transaction
+ */
 public record PaymentOrder(TransactionBuilder transactionBuilder,
                            UUID senderBankId,
                            UUID senderAccountId,
