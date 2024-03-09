@@ -36,21 +36,21 @@ public class TransferTransaction extends Transaction {
      * @throws FaultTransactionException If the transfer transaction encounters an error.
      */
     @Override
-    public void Execute() throws FaultTransactionException {
-        this.senderSnapshot = Optional.of(this.sender.TakeSnapshot());
-        this.receiverSnapshot = Optional.of(this.receiver.TakeSnapshot());
+    public void execute() throws FaultTransactionException {
+        this.senderSnapshot = Optional.of(this.sender.takeSnapshot());
+        this.receiverSnapshot = Optional.of(this.receiver.takeSnapshot());
 
         try {
-            if (!this.sender.IsWithdrawPossible(amount)) {
+            if (!this.sender.isWithdrawPossible(amount)) {
                 throw new FaultTransactionException("Transfer transaction fault, withdraw is not possible, sender: " + this.sender.toString() + "\n receiver: " + this.receiver.toString());
             }
 
-            if (!this.receiver.IsRefillPossible(amount)) {
+            if (!this.receiver.isRefillPossible(amount)) {
                 throw new FaultTransactionException("Transfer transaction fault, withdraw is not possible, sender: " + this.sender.toString() + "\n receiver: " + this.receiver.toString());
             }
 
-            this.sender.WithdrawBalance(amount);
-            this.receiver.RefillBalance(amount);
+            this.sender.withdrawBalance(amount);
+            this.receiver.refillBalance(amount);
 
         } catch (FaultTransactionException ex) {
             throw new FaultTransactionException(ex.getMessage() + "\n transaction: " + this.toString());
@@ -61,8 +61,8 @@ public class TransferTransaction extends Transaction {
      * Undoes the transfer transaction by restoring both the sender's and receiver's accounts to their previous states.
      */
     @Override
-    public void Undo() {
-        this.receiverSnapshot.ifPresent(this.receiver::Restore);
-        this.senderSnapshot.ifPresent(this.sender::Restore);
+    public void undo() {
+        this.receiverSnapshot.ifPresent(this.receiver::restore);
+        this.senderSnapshot.ifPresent(this.sender::restore);
     }
 }

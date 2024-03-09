@@ -35,12 +35,12 @@ public class RefillTransaction extends Transaction {
      * @throws FaultTransactionException If the refill transaction encounters an error.
      */
     @Override
-    public void Execute() throws FaultTransactionException {
-        this.receiverSnapshot = Optional.of(this.receiver.TakeSnapshot());
+    public void execute() throws FaultTransactionException {
+        this.receiverSnapshot = Optional.of(this.receiver.takeSnapshot());
 
         try {
-            if (this.receiver.IsRefillPossible(amount)) {
-                this.receiver.RefillBalance(amount);
+            if (this.receiver.isRefillPossible(amount)) {
+                this.receiver.refillBalance(amount);
             } else {
                 throw new FaultTransactionException("Refill is not possible, account: " + receiver.toString());
             }
@@ -53,7 +53,7 @@ public class RefillTransaction extends Transaction {
      * Undoes the refill transaction by restoring the receiver's account to its previous state.
      */
     @Override
-    public void Undo() {
-        this.receiverSnapshot.ifPresent(this.receiver::Restore);
+    public void undo() {
+        this.receiverSnapshot.ifPresent(this.receiver::restore);
     }
 }

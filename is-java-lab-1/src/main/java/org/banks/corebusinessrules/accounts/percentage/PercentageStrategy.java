@@ -12,5 +12,5 @@ public interface PercentageStrategy {
      * @param currentBalance The current balance to calculate the percentage for.
      * @return The calculated percentage.
      */
-    public BigDecimal DoPercentageCalculations(BigDecimal currentBalance);
+    public BigDecimal doPercentageCalculations(BigDecimal currentBalance);
 }

@@ -16,15 +16,15 @@ import java.util.UUID;
 public class AdminLoginController implements ConsoleController {
     private final LoginService loginService;
     @Override
-    public ConsoleView GetView() {
+    public ConsoleView getView() {
         return new LoginView();
     }
 
     @Override
-    public RouteAction ProcessPostRequest(PostForm form) {
+    public RouteAction processPostRequest(PostForm form) {
         UUID id = UUID.fromString(form.getFormData().get("id"));
         String password = form.getFormData().get("password");
-        Admin admin = loginService.AdminLogin(id, password);
+        Admin admin = loginService.adminLogin(id, password);
         if(admin != null) {
             return new Redirect("/AdminLogin/Admin");
         }

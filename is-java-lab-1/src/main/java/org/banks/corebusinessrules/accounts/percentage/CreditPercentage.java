@@ -20,7 +20,7 @@ public class CreditPercentage implements PercentageStrategy {
      * @return The calculated percentage.
      */
     @Override
-    public BigDecimal DoPercentageCalculations(BigDecimal currentBalance) {
+    public BigDecimal doPercentageCalculations(BigDecimal currentBalance) {
         if (currentBalance.compareTo(BigDecimal.ZERO) < 0) {
             return currentBalance.add(currentBalance.multiply(currentBalance));
         }

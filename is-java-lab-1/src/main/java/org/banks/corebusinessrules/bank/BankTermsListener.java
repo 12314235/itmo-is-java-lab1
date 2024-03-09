@@ -11,5 +11,5 @@ public interface BankTermsListener {
      * Reacts to a change in percentage strategy.
      * @param percentage The new percentage strategy.
      */
-    public void ReactToPercentageStrategyChange(PercentageStrategy percentage);
+    public void reactToPercentageStrategyChange(PercentageStrategy percentage);
 }

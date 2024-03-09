@@ -15,40 +15,40 @@ public interface BankRepository {
      * @param id The ID of the bank.
      * @return The bank with the specified ID, or null if not found.
      */
-    public Bank GetBankById(UUID id);
+    public Bank getBankById(UUID id);
 
     /**
      * Creates a new bank.
      *
      * @param bank The bank to create.
      */
-    public void CreateBank(Bank bank);
+    public void createBank(Bank bank);
 
     /**
      * Updates an existing bank.
      *
      * @param bank The bank to update.
      */
-    public void UpdateBank(Bank bank);
+    public void updateBank(Bank bank);
 
     /**
      * Deletes a bank by its ID.
      *
      * @param id The ID of the bank to delete.
      */
-    public void DeleteBankById(UUID id);
+    public void deleteBankById(UUID id);
 
     /**
      * Deletes a bank.
      *
      * @param bank The bank to delete.
      */
-    public void DeleteBank(Bank bank);
+    public void deleteBank(Bank bank);
 
     /**
      * Retrieves a list of all banks.
      *
      * @return The list of banks.
      */
-    public List<Bank> GetListOfBanks();
+    public List<Bank> getListOfBanks();
 }

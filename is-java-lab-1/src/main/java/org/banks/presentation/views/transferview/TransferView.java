@@ -13,17 +13,17 @@ public class TransferView extends ConsoleView {
     }
 
     @Override
-    public String GetView() {
+    public String getView() {
         return this.View;
     }
 
     @Override
-    public PostForm SendPostRequest() {
+    public PostForm sendPostRequest() {
         PostForm form = new PostForm(new HashMap<>());
         Scanner scanner = new Scanner(System.in);
-        form.AddData("amount", scanner.next());
-        form.AddData("bankId", scanner.next());
-        form.AddData("accountId", scanner.next());
+        form.addData("amount", scanner.next());
+        form.addData("bankId", scanner.next());
+        form.addData("accountId", scanner.next());
         return form;
     }
 }

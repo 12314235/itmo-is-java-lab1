@@ -8,12 +8,12 @@ import org.banks.presentation.views.admin.AdminView;
 
 public class AdminController implements ConsoleController {
     @Override
-    public ConsoleView GetView() {
+    public ConsoleView getView() {
         return new AdminView();
     }
 
     @Override
-    public RouteAction ProcessPostRequest(PostForm form) {
+    public RouteAction processPostRequest(PostForm form) {
         return null;
     }
 }

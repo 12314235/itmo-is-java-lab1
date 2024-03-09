@@ -12,32 +12,32 @@ public class InMemoryAdminRepositoryImpl implements AdminsRepository {
     private final HashMap<UUID, Admin> admins = new HashMap<>();
 
     @Override
-    public Admin GetAdminById(UUID id) {
+    public Admin getAdminById(UUID id) {
         return admins.get(id);
     }
 
     @Override
-    public void CreateAdmin(Admin admin) {
+    public void createAdmin(Admin admin) {
         admins.put(admin.getId(), admin);
     }
 
     @Override
-    public void UpdateAdmin(Admin admin) {
+    public void updateAdmin(Admin admin) {
         admins.put(admin.getId(), admin);
     }
 
     @Override
-    public void DeleteAdminById(UUID id) {
+    public void deleteAdminById(UUID id) {
         admins.remove(id);
     }
 
     @Override
-    public void DeleteAdmin(Admin admin) {
+    public void deleteAdmin(Admin admin) {
         admins.remove(admin.getId());
     }
 
     @Override
-    public List<Admin> GetListOfAdmins() {
+    public List<Admin> getListOfAdmins() {
         return new ArrayList<>(admins.values());
     }
 }

@@ -12,32 +12,32 @@ public class InMemoryClientRepositoryImpl implements ClientRepository {
     private final HashMap<UUID, Client> clients = new HashMap<>();
 
     @Override
-    public Client GetClientById(UUID id) {
+    public Client getClientById(UUID id) {
         return clients.get(id);
     }
 
     @Override
-    public void CreateClient(Client client) {
+    public void createClient(Client client) {
         clients.put(client.getId(), client);
     }
 
     @Override
-    public void UpdateClient(Client client) {
+    public void updateClient(Client client) {
         clients.put(client.getId(), client);
     }
 
     @Override
-    public void DeleteClientById(UUID id) {
+    public void deleteClientById(UUID id) {
         clients.remove(id);
     }
 
     @Override
-    public void DeleteClient(Client client) {
+    public void deleteClient(Client client) {
         clients.remove(client.getId());
     }
 
     @Override
-    public List<Client> GetListOfClients() {
+    public List<Client> getListOfClients() {
         return new ArrayList<>(clients.values());
     }
 }

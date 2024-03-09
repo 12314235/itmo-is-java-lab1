@@ -15,15 +15,15 @@ import java.util.UUID;
 public class GetAccountController implements ConsoleController {
     private final ClientService clientService;
     @Override
-    public ConsoleView GetView() {
+    public ConsoleView getView() {
         return new GetAccountView();
     }
 
     @Override
-    public RouteAction ProcessPostRequest(PostForm form) {
+    public RouteAction processPostRequest(PostForm form) {
         UUID id = UUID.fromString(form.getFormData().get("id"));
         String password = form.getFormData().get("password");
-        clientService.LogIntoAccount(id, password);
+        clientService.logIntoAccount(id, password);
         return new Redirect("/ClientLogin/Client");
     }
 }

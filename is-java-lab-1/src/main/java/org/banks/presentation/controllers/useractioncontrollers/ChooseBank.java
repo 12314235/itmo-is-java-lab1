@@ -16,14 +16,14 @@ public class ChooseBank implements ConsoleController {
     private final ClientService clientService;
 
     @Override
-    public ConsoleView GetView() {
+    public ConsoleView getView() {
         return new ChooseBankView();
     }
 
     @Override
-    public RouteAction ProcessPostRequest(PostForm form) {
+    public RouteAction processPostRequest(PostForm form) {
         UUID id = UUID.fromString(form.getFormData().get("id"));
-        clientService.ChooseBank(id);
+        clientService.chooseBank(id);
         return new Redirect("/ClientLogin/Client");
     }
 }

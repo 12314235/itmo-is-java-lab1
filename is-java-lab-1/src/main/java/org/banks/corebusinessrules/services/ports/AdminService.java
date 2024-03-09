@@ -6,6 +6,6 @@ import org.banks.corebusinessrules.bank.Bank;
 import java.util.UUID;
 
 public interface AdminService {
-    public void CreateBank(Bank bank);
-    public void UpdatePercentageStrategy(UUID bankId, PercentageStrategy newStrategy);
+    public void createBank(Bank bank);
+    public void updatePercentageStrategy(UUID bankId, PercentageStrategy newStrategy);
 }

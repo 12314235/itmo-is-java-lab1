@@ -9,12 +9,12 @@ import org.banks.presentation.views.Index.IndexView;
 
 public class IndexController implements ConsoleController {
     @Override
-    public ConsoleView GetView() {
+    public ConsoleView getView() {
         return new IndexView();
     }
 
     @Override
-    public RouteAction ProcessPostRequest(PostForm form) {
+    public RouteAction processPostRequest(PostForm form) {
         return switch (form.getFormData().get("role")) {
             case "1" -> new Redirect("/AdminLogin");
             case "2" -> new Redirect("/ClientLogin");

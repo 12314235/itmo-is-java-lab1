@@ -1,13 +1,10 @@
 package org.banks.corebusinessrules.bank;
 
-import lombok.Builder;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import org.banks.corebusinessrules.accounts.Account;
 import org.banks.corebusinessrules.accounts.percentage.PercentageStrategy;
 import org.banks.corebusinessrules.models.Client;
 import org.banks.corebusinessrules.models.paymentorder.PaymentOrder;
-import org.banks.corebusinessrules.services.centralbankservice.CentralBankService;
 import org.banks.corebusinessrules.services.globalfinancialmessagingservice.GlobalFinancialMessagingService;
 import org.banks.corebusinessrules.services.timemanager.TimeManager;
 import org.banks.corebusinessrules.services.transactions.builders.TransactionBuilder;
@@ -43,9 +40,9 @@ public class Bank {
      * Adds a new account to the bank.
      * @param account The account to add.
      */
-    public void AddAccount(Account account) {
+    public void addAccount(Account account) {
         accounts.add(account);
-        timeManager.AddObservers(account);
+        timeManager.addObservers(account);
     }
 
 
@@ -53,9 +50,9 @@ public class Bank {
      * Updates percentage calculation strategy.
      * @param percentageStrategy New percentage strategy.
      */
-    public void UpdatePercentageStrategy(PercentageStrategy percentageStrategy) {
+    public void updatePercentageStrategy(PercentageStrategy percentageStrategy) {
         for(Account acc : accounts) {
-            acc.ReactToPercentageStrategyChange(percentageStrategy);
+            acc.reactToPercentageStrategyChange(percentageStrategy);
         }
     }
 
@@ -63,7 +60,7 @@ public class Bank {
      * Adds a new subscriber to the bank.
      * @param client The subscriber to add.
      */
-    public void AddSubscriber(Client client) {
+    public void addSubscriber(Client client) {
         subscribers.add(client);
     }
 
@@ -71,7 +68,7 @@ public class Bank {
      * Adds a new client to the bank.
      * @param client The client to add.
      */
-    public void AddClient(Client client) {
+    public void addClient(Client client) {
         clients.add(client);
     }
 
@@ -81,7 +78,7 @@ public class Bank {
      * @param password The password of the account.
      * @return An optional containing the ID of the logged-in account, or empty if login failed.
      */
-    public Optional<UUID> LoginIntoAccount(UUID id, String password) {
+    public Optional<UUID> loginIntoAccount(UUID id, String password) {
         Optional<Account> account = this.accounts.stream()
                 .filter(acc -> acc.getId().equals(id))
                 .findFirst();
@@ -90,7 +87,7 @@ public class Bank {
             return Optional.empty();
         }
 
-        if(!account.get().CheckPassword(password)) {
+        if(!account.get().checkPassword(password)) {
             return Optional.empty();
         }
 
@@ -101,8 +98,8 @@ public class Bank {
      * Processes a payment order.
      * @param order The payment order to process.
      */
-    public void ProcessPaymentOrder(PaymentOrder order) {
-        globalFinancialMessagingService.ProcessPaymentOrder(order);
+    public void processPaymentOrder(PaymentOrder order) {
+        globalFinancialMessagingService.processPaymentOrder(order);
     }
 
     /**
@@ -111,7 +108,7 @@ public class Bank {
      * @param accountId The ID of the sender account.
      * @throws ClassNotFoundException if the account with the specified ID is not found.
      */
-    public void GetSenderAccount(TransactionBuilder builder, UUID accountId) throws ClassNotFoundException {
+    public void getSenderAccount(TransactionBuilder builder, UUID accountId) throws ClassNotFoundException {
         Optional<Account> account = accounts.stream()
                 .filter(acc -> acc.getId().equals(accountId))
                 .findFirst();
@@ -130,7 +127,7 @@ public class Bank {
      * @param accountId The ID of the receiver account.
      * @throws ClassNotFoundException if the account with the specified ID is not found.
      */
-    public void GetReceiverAccount(TransactionBuilder builder, UUID accountId) throws ClassNotFoundException {
+    public void getReceiverAccount(TransactionBuilder builder, UUID accountId) throws ClassNotFoundException {
         Optional<Account> account = accounts.stream()
                 .filter(acc -> acc.getId().equals(accountId))
                 .findFirst();

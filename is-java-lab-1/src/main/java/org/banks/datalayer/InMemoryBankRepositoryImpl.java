@@ -22,7 +22,7 @@ public class InMemoryBankRepositoryImpl implements BankRepository {
      * @return The bank with the specified identifier, or null if not found.
      */
     @Override
-    public Bank GetBankById(UUID id) {
+    public Bank getBankById(UUID id) {
         return banks.get(id);
     }
 
@@ -32,7 +32,7 @@ public class InMemoryBankRepositoryImpl implements BankRepository {
      * @param bank The bank to be created.
      */
     @Override
-    public void CreateBank(Bank bank) {
+    public void createBank(Bank bank) {
         banks.put(bank.getId(), bank);
     }
 
@@ -42,7 +42,7 @@ public class InMemoryBankRepositoryImpl implements BankRepository {
      * @param bank The bank to be updated.
      */
     @Override
-    public void UpdateBank(Bank bank) {
+    public void updateBank(Bank bank) {
         banks.put(bank.getId(), bank);
     }
 
@@ -52,7 +52,7 @@ public class InMemoryBankRepositoryImpl implements BankRepository {
      * @param id The unique identifier of the bank to be deleted.
      */
     @Override
-    public void DeleteBankById(UUID id) {
+    public void deleteBankById(UUID id) {
         banks.remove(id);
     }
 
@@ -62,7 +62,7 @@ public class InMemoryBankRepositoryImpl implements BankRepository {
      * @param bank The bank to be deleted.
      */
     @Override
-    public void DeleteBank(Bank bank) {
+    public void deleteBank(Bank bank) {
         banks.remove(bank.getId());
     }
 
@@ -72,7 +72,7 @@ public class InMemoryBankRepositoryImpl implements BankRepository {
      * @return A list of all banks stored in the repository.
      */
     @Override
-    public List<Bank> GetListOfBanks() {
+    public List<Bank> getListOfBanks() {
         return new ArrayList<>(banks.values());
     }
 }

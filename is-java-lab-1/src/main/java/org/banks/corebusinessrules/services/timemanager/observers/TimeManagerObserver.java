@@ -11,5 +11,5 @@ public interface TimeManagerObserver {
      *
      * @param time The new LocalDateTime indicating the current time.
      */
-    void ReactToTimeChange(LocalDateTime time);
+    void reactToTimeChange(LocalDateTime time);
 }

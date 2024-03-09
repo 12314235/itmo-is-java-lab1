@@ -30,7 +30,7 @@ public class DepositPercentage implements PercentageStrategy {
      * @param currentBalance The current balance to calculate the percentage for.
      * @return The calculated percentage.
      */
-    public BigDecimal DoPercentageCalculations(BigDecimal currentBalance) {
+    public BigDecimal doPercentageCalculations(BigDecimal currentBalance) {
         for (BigDecimal key : balancePercentagePairs.keySet()) {
             if (key.compareTo(currentBalance) >= 0) {
                 return currentBalance.add(currentBalance.multiply(balancePercentagePairs.get(key)));

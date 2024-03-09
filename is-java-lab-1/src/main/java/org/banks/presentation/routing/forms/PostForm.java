@@ -8,7 +8,7 @@ import java.util.Map;
 public class PostForm {
     private final Map<String, String> formData;
 
-    public void AddData(String key, String value) {
+    public void addData(String key, String value) {
         formData.put(key, value);
     }
 }

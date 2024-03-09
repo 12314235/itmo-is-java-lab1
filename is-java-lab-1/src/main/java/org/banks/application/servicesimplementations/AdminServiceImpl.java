@@ -12,15 +12,15 @@ import java.util.UUID;
 public class AdminServiceImpl implements AdminService {
     private final BankRepository bankRepository;
     @Override
-    public void CreateBank(Bank bank) {
-        this.bankRepository.CreateBank(bank);
+    public void createBank(Bank bank) {
+        this.bankRepository.createBank(bank);
     }
 
     @Override
-    public void UpdatePercentageStrategy(UUID bankId, PercentageStrategy newStrategy) {
-        Bank bank = bankRepository.GetBankById(bankId);
+    public void updatePercentageStrategy(UUID bankId, PercentageStrategy newStrategy) {
+        Bank bank = bankRepository.getBankById(bankId);
         if(bank != null) {
-            bank.UpdatePercentageStrategy(newStrategy);
+            bank.updatePercentageStrategy(newStrategy);
         }
     }
 }

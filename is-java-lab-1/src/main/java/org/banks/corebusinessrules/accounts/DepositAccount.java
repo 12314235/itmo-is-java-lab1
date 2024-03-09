@@ -42,7 +42,7 @@ public class DepositAccount extends Account {
      * @return true indicating refill is possible.
      */
     @Override
-    public boolean IsRefillPossible(BigDecimal amount) {
+    public boolean isRefillPossible(BigDecimal amount) {
         return accountTerm.isBefore(this.currentTime);
     }
 
@@ -54,7 +54,7 @@ public class DepositAccount extends Account {
      * @return true indicating withdraw is possible.
      */
     @Override
-    public boolean IsWithdrawPossible(BigDecimal amount) {
+    public boolean isWithdrawPossible(BigDecimal amount) {
         return accountTerm.isBefore(this.currentTime);
     }
 
@@ -65,10 +65,10 @@ public class DepositAccount extends Account {
      * @param time The new time value.
      */
     @Override
-    public void ReactToTimeChange(LocalDateTime time) {
+    public void reactToTimeChange(LocalDateTime time) {
         this.currentTime = time;
         if (this.currentTime.getDayOfMonth() == 1) {
-            this.UpdateBalance();
+            this.updateBalance();
         }
     }
 
@@ -78,7 +78,7 @@ public class DepositAccount extends Account {
      * @param percentage The new percentage strategy.
      */
     @Override
-    public void ReactToPercentageStrategyChange(PercentageStrategy percentage) {
+    public void reactToPercentageStrategyChange(PercentageStrategy percentage) {
         if (percentage instanceof DepositPercentage) {
             this.percentage = percentage;
         }

@@ -17,7 +17,7 @@ public class SafeClientVerificationImpl implements VerificationStrategy {
      * @return true indicating the operation is verified.
      */
     @Override
-    public boolean IsVerificatedOperation(BigDecimal limit, BigDecimal amount) {
+    public boolean isVerificatedOperation(BigDecimal limit, BigDecimal amount) {
         return true;
     }
 }

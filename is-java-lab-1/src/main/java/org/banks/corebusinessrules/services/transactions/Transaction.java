@@ -39,10 +39,10 @@ public abstract class Transaction {
      *
      * @throws FaultTransactionException If the transaction encounters an error.
      */
-    public abstract void Execute() throws FaultTransactionException;
+    public abstract void execute() throws FaultTransactionException;
 
     /**
      * Undoes the transaction.
      */
-    public abstract void Undo();
+    public abstract void undo();
 }

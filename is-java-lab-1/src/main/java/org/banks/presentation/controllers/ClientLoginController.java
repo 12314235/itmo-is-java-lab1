@@ -1,7 +1,6 @@
 package org.banks.presentation.controllers;
 
 import lombok.RequiredArgsConstructor;
-import org.banks.corebusinessrules.models.Admin;
 import org.banks.corebusinessrules.models.Client;
 import org.banks.corebusinessrules.services.ports.LoginService;
 import org.banks.presentation.routing.actions.Redirect;
@@ -17,15 +16,15 @@ import java.util.UUID;
 public class ClientLoginController implements ConsoleController {
     private final LoginService loginService;
     @Override
-    public ConsoleView GetView() {
+    public ConsoleView getView() {
         return new LoginView();
     }
 
     @Override
-    public RouteAction ProcessPostRequest(PostForm form) {
+    public RouteAction processPostRequest(PostForm form) {
         UUID id = UUID.fromString(form.getFormData().get("id"));
         String password = form.getFormData().get("password");
-        Client client = loginService.ClientLogin(id, password);
+        Client client = loginService.clientLogin(id, password);
         if(client != null) {
             return new Redirect("/ClientLogin/Client");
         }

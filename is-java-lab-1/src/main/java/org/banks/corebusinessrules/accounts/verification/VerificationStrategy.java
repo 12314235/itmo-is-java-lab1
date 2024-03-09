@@ -14,5 +14,5 @@ public interface VerificationStrategy {
      * @param amount The amount of the operation.
      * @return true if the operation is verified, false otherwise.
      */
-    public boolean IsVerificatedOperation(BigDecimal limit, BigDecimal amount);
+    public boolean isVerificatedOperation(BigDecimal limit, BigDecimal amount);
 }

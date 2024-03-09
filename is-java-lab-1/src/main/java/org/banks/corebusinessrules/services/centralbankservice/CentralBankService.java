@@ -23,13 +23,13 @@ public class CentralBankService {
      *
      * @param transaction The transaction to be processed.
      */
-    public void ProcessTransaction(Transaction transaction) {
+    public void processTransaction(Transaction transaction) {
         transactionHistory.add(transaction);
 
         try {
-            transaction.Execute();
+            transaction.execute();
         } catch (FaultTransactionException ex) {
-            transaction.Undo();
+            transaction.undo();
         }
     }
 
@@ -42,12 +42,12 @@ public class CentralBankService {
         return -1;  // Return -1 if no match is found
     }
 
-    public void UndoTransaction(UUID transactionId) {
+    public void undoTransaction(UUID transactionId) {
         int index = findIndex(this.transactionHistory, tr -> tr.getTransactionId().equals(transactionId));
 
         if (index != -1) {
             for (int i = index + 1; index < this.transactionHistory.size(); i++) {
-                this.ProcessTransaction(this.transactionHistory.get(i));
+                this.processTransaction(this.transactionHistory.get(i));
             }
         }
     }

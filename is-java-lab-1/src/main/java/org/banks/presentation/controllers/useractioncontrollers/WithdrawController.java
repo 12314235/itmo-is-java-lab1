@@ -15,14 +15,14 @@ import java.math.BigDecimal;
 public class WithdrawController implements ConsoleController {
     private final ClientService clientService;
     @Override
-    public ConsoleView GetView() {
+    public ConsoleView getView() {
         return new TransactionView();
     }
 
     @Override
-    public RouteAction ProcessPostRequest(PostForm form) {
+    public RouteAction processPostRequest(PostForm form) {
         BigDecimal amount = new BigDecimal(form.getFormData().get("amount"));
-        clientService.SendWithdrawOrder(amount);
+        clientService.sendWithdrawOrder(amount);
         return new Redirect("/ClientLogin/Client");
     }
 }

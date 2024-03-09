@@ -25,29 +25,29 @@ public class DefaultTimeManagerImpl implements TimeManager {
     }
 
     @Override
-    public void SkipDays(int count) {
+    public void skipDays(int count) {
         time = time.plusDays(count);
     }
 
     @Override
-    public boolean IsFirstDayOfMonth() {
+    public boolean isFirstDayOfMonth() {
         return time.getDayOfMonth() == 1;
     }
 
     @Override
-    public void NotifyAccounts() {
+    public void notifyAccounts() {
         for (TimeManagerObserver observer : observers) {
-            observer.ReactToTimeChange(this.time);
+            observer.reactToTimeChange(this.time);
         }
     }
 
     @Override
-    public void AddObservers(TimeManagerObserver account) {
+    public void addObservers(TimeManagerObserver account) {
         observers.add(account);
     }
 
     @Override
-    public LocalDateTime GetCurrentTime() {
+    public LocalDateTime getCurrentTime() {
         return this.time;
     }
 }

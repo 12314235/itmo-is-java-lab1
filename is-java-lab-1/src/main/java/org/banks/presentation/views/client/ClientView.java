@@ -20,15 +20,15 @@ public class ClientView extends ConsoleView {
     }
 
     @Override
-    public String GetView() {
+    public String getView() {
         return this.View;
     }
 
     @Override
-    public PostForm SendPostRequest() {
+    public PostForm sendPostRequest() {
         PostForm form = new PostForm(new HashMap<>());
         Scanner scanner = new Scanner(System.in);
-        form.AddData("operation", scanner.next());
+        form.addData("operation", scanner.next());
         return form;
     }
 }

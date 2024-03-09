@@ -2,9 +2,6 @@ package org.banks.application.servicesimplementations;
 
 import lombok.RequiredArgsConstructor;
 import org.banks.corebusinessrules.accounts.Account;
-import org.banks.corebusinessrules.accounts.CreditAccount;
-import org.banks.corebusinessrules.accounts.DebitAccount;
-import org.banks.corebusinessrules.accounts.DepositAccount;
 import org.banks.corebusinessrules.bank.Bank;
 import org.banks.corebusinessrules.models.paymentorder.PaymentOrder;
 import org.banks.corebusinessrules.services.ports.ClientService;
@@ -23,42 +20,42 @@ public class ClientServiceImpl implements ClientService {
     private Bank currentBank;
     private Optional<UUID> currentAccount;
     @Override
-    public void ChooseBank(UUID bankId) {
-        currentBank = bankRepository.GetBankById(bankId);
+    public void chooseBank(UUID bankId) {
+        currentBank = bankRepository.getBankById(bankId);
     }
 
     @Override
-    public void LogIntoAccount(UUID accountId, String password) {
+    public void logIntoAccount(UUID accountId, String password) {
         if(currentBank != null) {
-            this.currentAccount = currentBank.LoginIntoAccount(accountId, password);
+            this.currentAccount = currentBank.loginIntoAccount(accountId, password);
         }
     }
 
     @Override
-    public void CreateAccount(Account account) {
+    public void createAccount(Account account) {
         if(this.currentBank != null) {
-            this.currentBank.AddAccount(account);
+            this.currentBank.addAccount(account);
         }
     }
 
     @Override
-    public void SendWithdrawOrder(BigDecimal amount) {
+    public void sendWithdrawOrder(BigDecimal amount) {
         if(this.currentAccount.isPresent() && this.currentBank != null) {
-            this.currentBank.ProcessPaymentOrder(new PaymentOrder(new WithdrawTransactionBuilder(), this.currentBank.getId(), this.currentAccount.get(), this.currentBank.getId(), this.currentAccount.get(), amount));
+            this.currentBank.processPaymentOrder(new PaymentOrder(new WithdrawTransactionBuilder(), this.currentBank.getId(), this.currentAccount.get(), this.currentBank.getId(), this.currentAccount.get(), amount));
         }
     }
 
     @Override
-    public void SendRefillOrder(BigDecimal amount) {
+    public void sendRefillOrder(BigDecimal amount) {
         if(this.currentAccount.isPresent() && this.currentBank != null) {
-            this.currentBank.ProcessPaymentOrder(new PaymentOrder(new RefillTransactionBuilder(), this.currentBank.getId(), this.currentAccount.get(), this.currentBank.getId(), this.currentAccount.get(), amount));
+            this.currentBank.processPaymentOrder(new PaymentOrder(new RefillTransactionBuilder(), this.currentBank.getId(), this.currentAccount.get(), this.currentBank.getId(), this.currentAccount.get(), amount));
         }
     }
 
     @Override
-    public void SendTransferOrder(UUID destBankId, UUID destAccountId, BigDecimal amount) {
+    public void sendTransferOrder(UUID destBankId, UUID destAccountId, BigDecimal amount) {
         if(this.currentAccount.isPresent() && this.currentBank != null) {
-            this.currentBank.ProcessPaymentOrder(new PaymentOrder(new TransferTransactionBuilder(), this.currentBank.getId(), this.currentAccount.get(), destBankId, destAccountId, amount));
+            this.currentBank.processPaymentOrder(new PaymentOrder(new TransferTransactionBuilder(), this.currentBank.getId(), this.currentAccount.get(), destBankId, destAccountId, amount));
         }
     }
 }

@@ -22,10 +22,10 @@ public class UserServiceTests {
 
     @Test
     public void Test() {
-        clientRepository.CreateClient(new Client(UUID.fromString("f5fc9860-1e9f-4cf1-8213-5e2c122ece6e"), "name", "surname", "12345"));
-        adminsRepository.CreateAdmin(new Admin(UUID.fromString("f5fc9860-1e9f-4cf1-8213-5e2c122ece6e"), "12345"));
+        clientRepository.createClient(new Client(UUID.fromString("f5fc9860-1e9f-4cf1-8213-5e2c122ece6e"), "name", "surname", "12345"));
+        adminsRepository.createAdmin(new Admin(UUID.fromString("f5fc9860-1e9f-4cf1-8213-5e2c122ece6e"), "12345"));
 
-        bankRepository.CreateBank(new Bank(UUID.fromString("f5fc9860-1e9f-4cf1-8213-5e2c122ece6e"),
+        bankRepository.createBank(new Bank(UUID.fromString("f5fc9860-1e9f-4cf1-8213-5e2c122ece6e"),
                 new GlobalFinancialMessagingService(new CentralBankService(), bankRepository),
                 new DefaultTimeManagerImpl(LocalDateTime.now())));
 

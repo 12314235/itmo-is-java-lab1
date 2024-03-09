@@ -14,12 +14,12 @@ public class UserController implements ConsoleController {
     private final ClientService clientService;
 
     @Override
-    public ConsoleView GetView() {
+    public ConsoleView getView() {
         return new ClientView();
     }
 
     @Override
-    public RouteAction ProcessPostRequest(PostForm form) {
+    public RouteAction processPostRequest(PostForm form) {
         return switch(form.getFormData().get("operation")) {
             case "1" -> new Redirect("/ClientLogin/Client/ChooseBank");
             case "2" -> new Redirect("/ClientLogin/Client/GetAccount");

@@ -5,6 +5,6 @@ import org.banks.presentation.routing.forms.PostForm;
 import org.banks.presentation.views.ConsoleView;
 
 public interface ConsoleController {
-    public ConsoleView GetView();
-    public RouteAction ProcessPostRequest(PostForm form);
+    public ConsoleView getView();
+    public RouteAction processPostRequest(PostForm form);
 }

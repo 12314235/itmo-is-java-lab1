@@ -2,8 +2,6 @@ package org.banks.presentation;
 
 import org.banks.application.servicesimplementations.ClientServiceImpl;
 import org.banks.application.servicesimplementations.LoginServiceImpl;
-import org.banks.corebusinessrules.accounts.CreditAccount;
-import org.banks.corebusinessrules.accounts.DebitAccount;
 import org.banks.corebusinessrules.accounts.builders.CreditAccountBuilder;
 import org.banks.corebusinessrules.accounts.builders.DebitAccountBuilder;
 import org.banks.corebusinessrules.accounts.builders.DepositAccountBuilder;
@@ -31,7 +29,6 @@ import org.banks.presentation.routing.forms.PostForm;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.Scanner;
 import java.util.UUID;
 
 public class Main {
@@ -45,18 +42,18 @@ public class Main {
         ClientService clientService = new ClientServiceImpl(bankRepository);
         LoginService loginService = new LoginServiceImpl(clientRepository, adminsRepository);
 
-        router.AddRoute("/", new IndexController());
-        router.AddRoute("/AdminLogin", new AdminLoginController(loginService));
-        router.AddRoute("/ClientLogin", new ClientLoginController(loginService));
-        router.AddRoute("/ClientLogin/Client", new UserController(clientService));
-        router.AddRoute("/AdminLogin/Admin", new AdminController());
-        router.AddRoute("/ClientLogin/Client/ChooseBank", new ChooseBank(clientService));
-        router.AddRoute("/ClientLogin/Client/GetAccount", new GetAccountController(clientService));
-        router.AddRoute("/ClientLogin/Client/Withdraw", new WithdrawController(clientService));
-        router.AddRoute("/ClientLogin/Client/Refill", new RefillController(clientService));
-        router.AddRoute("/ClientLogin/Client/Transfer", new TransferController(clientService));
+        router.addRoute("/", new IndexController());
+        router.addRoute("/AdminLogin", new AdminLoginController(loginService));
+        router.addRoute("/ClientLogin", new ClientLoginController(loginService));
+        router.addRoute("/ClientLogin/Client", new UserController(clientService));
+        router.addRoute("/AdminLogin/Admin", new AdminController());
+        router.addRoute("/ClientLogin/Client/ChooseBank", new ChooseBank(clientService));
+        router.addRoute("/ClientLogin/Client/GetAccount", new GetAccountController(clientService));
+        router.addRoute("/ClientLogin/Client/Withdraw", new WithdrawController(clientService));
+        router.addRoute("/ClientLogin/Client/Refill", new RefillController(clientService));
+        router.addRoute("/ClientLogin/Client/Transfer", new TransferController(clientService));
 
-        router.SetEntryPoint(new IndexController());
+        router.setEntryPoint(new IndexController());
 
         CreditAccountBuilder creditAccountBuilder = new CreditAccountBuilder();
         DepositAccountBuilder depositAccountBuilder = new DepositAccountBuilder();
@@ -64,27 +61,27 @@ public class Main {
 
         TimeManager timeManager = new DefaultTimeManagerImpl(LocalDateTime.now());
 
-        clientRepository.CreateClient(new Client(UUID.fromString("f5fc9860-1e9f-4cf1-8213-5e2c122ece6e"), "name", "surname", "12345"));
-        adminsRepository.CreateAdmin(new Admin(UUID.fromString("f5fc9860-1e9f-4cf1-8213-5e2c122ece6e"), "12345"));
+        clientRepository.createClient(new Client(UUID.fromString("f5fc9860-1e9f-4cf1-8213-5e2c122ece6e"), "name", "surname", "12345"));
+        adminsRepository.createAdmin(new Admin(UUID.fromString("f5fc9860-1e9f-4cf1-8213-5e2c122ece6e"), "12345"));
 
-        bankRepository.CreateBank(new Bank(UUID.fromString("f5fc9860-1e9f-4cf1-8213-5e2c122ece6e"),
+        bankRepository.createBank(new Bank(UUID.fromString("f5fc9860-1e9f-4cf1-8213-5e2c122ece6e"),
                 new GlobalFinancialMessagingService(new CentralBankService(), bankRepository),
                 timeManager));
 
-        bankRepository.GetBankById(UUID.fromString("f5fc9860-1e9f-4cf1-8213-5e2c122ece6e"))
-                .AddAccount(creditAccountBuilder.setId(UUID.fromString("f5fc9860-1e9f-4cf1-8213-5e2c122ece6e"))
-                        .setCurrentTime(timeManager.GetCurrentTime())
+        bankRepository.getBankById(UUID.fromString("f5fc9860-1e9f-4cf1-8213-5e2c122ece6e"))
+                .addAccount(creditAccountBuilder.setId(UUID.fromString("f5fc9860-1e9f-4cf1-8213-5e2c122ece6e"))
+                        .setCurrentTime(timeManager.getCurrentTime())
                         .setLimit(new BigDecimal("10000"))
-                        .setOwner(clientRepository.GetClientById(UUID.fromString("f5fc9860-1e9f-4cf1-8213-5e2c122ece6e")))
+                        .setOwner(clientRepository.getClientById(UUID.fromString("f5fc9860-1e9f-4cf1-8213-5e2c122ece6e")))
                         .setPassword("12345")
                         .setPercentage(new CreditPercentage(new BigDecimal("0.05")))
                         .createCreditAccount());
 
         while(true) {
-            System.out.print(router.getCurrentController().GetView().GetView());
-            PostForm form = router.getCurrentController().GetView().SendPostRequest();
-            RouteAction action = router.getCurrentController().ProcessPostRequest(form);
-            router.ChangeRoute(action);
+            System.out.print(router.getCurrentController().getView().getView());
+            PostForm form = router.getCurrentController().getView().sendPostRequest();
+            RouteAction action = router.getCurrentController().processPostRequest(form);
+            router.changeRoute(action);
         }
     }
 }

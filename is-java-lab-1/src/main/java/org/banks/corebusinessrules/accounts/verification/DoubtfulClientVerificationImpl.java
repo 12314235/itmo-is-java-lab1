@@ -17,7 +17,7 @@ public class DoubtfulClientVerificationImpl implements VerificationStrategy {
      * @return true if the operation is verified, false otherwise.
      */
     @Override
-    public boolean IsVerificatedOperation(BigDecimal limit, BigDecimal amount) {
+    public boolean isVerificatedOperation(BigDecimal limit, BigDecimal amount) {
         return amount.compareTo(limit) <= 0;
     }
 }

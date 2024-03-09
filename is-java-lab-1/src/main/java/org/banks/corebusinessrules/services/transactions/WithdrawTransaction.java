@@ -35,12 +35,12 @@ public class WithdrawTransaction extends Transaction {
      * @throws FaultTransactionException If the withdraw transaction encounters an error.
      */
     @Override
-    public void Execute() throws FaultTransactionException {
-        this.receiverSnapshot = Optional.of(this.receiver.TakeSnapshot());
+    public void execute() throws FaultTransactionException {
+        this.receiverSnapshot = Optional.of(this.receiver.takeSnapshot());
 
         try {
-            if (this.receiver.IsWithdrawPossible(amount)) {
-                this.receiver.WithdrawBalance(amount);
+            if (this.receiver.isWithdrawPossible(amount)) {
+                this.receiver.withdrawBalance(amount);
             } else {
                 throw new FaultTransactionException("Withdraw is not possible, account: " + receiver.toString());
             }
@@ -53,7 +53,7 @@ public class WithdrawTransaction extends Transaction {
      * Undoes the withdraw transaction by restoring the receiver's account to its previous state.
      */
     @Override
-    public void Undo() {
-        this.receiverSnapshot.ifPresent(this.receiver::Restore);
+    public void undo() {
+        this.receiverSnapshot.ifPresent(this.receiver::restore);
     }
 }

@@ -15,15 +15,15 @@ public class IndexView extends ConsoleView {
     }
 
     @Override
-    public String GetView() {
+    public String getView() {
         return this.View;
     }
 
     @Override
-    public PostForm SendPostRequest() {
+    public PostForm sendPostRequest() {
         Scanner scanner = new Scanner(System.in);
         PostForm form = new PostForm(new HashMap<>());
-        form.AddData("role", scanner.next());
+        form.addData("role", scanner.next());
         return form;
     }
 }

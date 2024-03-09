@@ -19,7 +19,7 @@ public class DebitPercentage implements PercentageStrategy {
      * @return The calculated percentage.
      */
     @Override
-    public BigDecimal DoPercentageCalculations(BigDecimal currentBalance) {
+    public BigDecimal doPercentageCalculations(BigDecimal currentBalance) {
         return currentBalance.add(currentBalance.multiply(this.percentage));
     }
 }

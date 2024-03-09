@@ -1,6 +1,5 @@
 package org.banks.presentation.views.admin;
 
-import org.banks.corebusinessrules.services.ports.AdminService;
 import org.banks.presentation.routing.forms.PostForm;
 import org.banks.presentation.views.ConsoleView;
 
@@ -17,15 +16,15 @@ public class AdminView extends ConsoleView {
     }
 
     @Override
-    public String GetView() {
+    public String getView() {
         return this.View;
     }
 
     @Override
-    public PostForm SendPostRequest() {
+    public PostForm sendPostRequest() {
         PostForm form = new PostForm(new HashMap<>());
         Scanner scanner = new Scanner(System.in);
-        form.AddData("operation", scanner.next());
+        form.addData("operation", scanner.next());
         return form;
     }
 }

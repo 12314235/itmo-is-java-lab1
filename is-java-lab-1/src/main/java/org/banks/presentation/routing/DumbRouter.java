@@ -12,15 +12,15 @@ public class DumbRouter {
     private Map<String, ConsoleController> routes = new HashMap<>();
     @Getter private ConsoleController currentController;
 
-    public void AddRoute(String route, ConsoleController controller) {
+    public void addRoute(String route, ConsoleController controller) {
         routes.put(route, controller);
     }
 
-    public void SetEntryPoint(ConsoleController controller) {
+    public void setEntryPoint(ConsoleController controller) {
         this.currentController = controller;
     }
 
-    public void ChangeRoute(RouteAction action) {
+    public void changeRoute(RouteAction action) {
         if(action instanceof Redirect) {
             this.currentController = this.routes.get(action.getNewRoute());
         }

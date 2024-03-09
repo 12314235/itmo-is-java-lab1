@@ -16,8 +16,8 @@ public class LoginServiceImpl implements LoginService {
 
 
     @Override
-    public Admin AdminLogin(UUID id, String password) {
-        Admin admin = adminsRepository.GetAdminById(id);
+    public Admin adminLogin(UUID id, String password) {
+        Admin admin = adminsRepository.getAdminById(id);
         if(admin.getPassword().equals(password)) {
             return admin;
         }
@@ -26,8 +26,8 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public Client ClientLogin(UUID id, String password) {
-        Client client = clientRepository.GetClientById(id);
+    public Client clientLogin(UUID id, String password) {
+        Client client = clientRepository.getClientById(id);
         if(client.getPassword().equals(password)) {
             return client;
         }

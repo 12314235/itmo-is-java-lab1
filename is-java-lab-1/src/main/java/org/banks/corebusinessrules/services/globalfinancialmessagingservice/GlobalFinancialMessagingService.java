@@ -27,20 +27,20 @@ public class GlobalFinancialMessagingService {
      *
      * @param order The payment order to be processed.
      */
-    public void ProcessPaymentOrder(PaymentOrder order) {
+    public void processPaymentOrder(PaymentOrder order) {
         TransactionBuilder builder = order.transactionBuilder();
-        Bank bankReceiver = bankRepository.GetBankById(order.receiverBankId());
-        Bank bankSender = bankRepository.GetBankById(order.senderBankId());
+        Bank bankReceiver = bankRepository.getBankById(order.receiverBankId());
+        Bank bankSender = bankRepository.getBankById(order.senderBankId());
 
         try {
-            bankReceiver.GetReceiverAccount(builder, order.receiverAccountId());
-            bankSender.GetSenderAccount(builder, order.senderAccountId());
+            bankReceiver.getReceiverAccount(builder, order.receiverAccountId());
+            bankSender.getSenderAccount(builder, order.senderAccountId());
         } catch (ClassNotFoundException ex) {
             // Handle class not found exception
             return;
         }
 
-        centralBank.ProcessTransaction(builder
+        centralBank.processTransaction(builder
                 .WithAmount(order.amount())
                 .Build());
     }

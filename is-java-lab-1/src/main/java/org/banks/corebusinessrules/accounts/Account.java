@@ -59,10 +59,10 @@ public abstract class Account implements TimeManagerObserver, BankTermsListener 
      * @return An AccountOperationResult indicating the result of the refill operation.
      * @throws FaultTransactionException If the refill operation fails.
      */
-    public AccountOperationResult RefillBalance(BigDecimal amount) throws FaultTransactionException {
-        if (verificationStrategy.IsVerificatedOperation(this.limit, amount)) {
+    public AccountOperationResult refillBalance(BigDecimal amount) throws FaultTransactionException {
+        if (verificationStrategy.isVerificatedOperation(this.limit, amount)) {
             balance = balance.add(amount);
-            return new AccountOperationResult(this.id, "Successfully refilled balance.", ResultStatus.Success);
+            return new AccountOperationResult(this.id, "Successfully refilled balance.", ResultStatus.SUCCESS);
         } else {
             throw new FaultTransactionException("Refill transaction fault account: " + this.toString());
         }
@@ -75,10 +75,10 @@ public abstract class Account implements TimeManagerObserver, BankTermsListener 
      * @return An AccountOperationResult indicating the result of the withdraw operation.
      * @throws FaultTransactionException If the withdraw operation fails.
      */
-    public AccountOperationResult WithdrawBalance(BigDecimal amount) throws FaultTransactionException {
-        if (verificationStrategy.IsVerificatedOperation(this.limit, amount)) {
+    public AccountOperationResult withdrawBalance(BigDecimal amount) throws FaultTransactionException {
+        if (verificationStrategy.isVerificatedOperation(this.limit, amount)) {
             balance = balance.subtract(amount);
-            return new AccountOperationResult(this.id, "Successfully withdrew balance.", ResultStatus.Success);
+            return new AccountOperationResult(this.id, "Successfully withdrew balance.", ResultStatus.SUCCESS);
         } else {
             throw new FaultTransactionException("Withdraw transaction fault account: " + this.toString());
         }
@@ -90,7 +90,7 @@ public abstract class Account implements TimeManagerObserver, BankTermsListener 
      * @param password The password to check.
      * @return true if the password matches, false otherwise.
      */
-    public boolean CheckPassword(String password) {
+    public boolean checkPassword(String password) {
         return this.password.equals(password);
     }
 
@@ -99,7 +99,7 @@ public abstract class Account implements TimeManagerObserver, BankTermsListener 
      *
      * @return An AccountMemento representing the snapshot of the account.
      */
-    public AccountMemento TakeSnapshot() {
+    public AccountMemento takeSnapshot() {
         return new AccountMemento(this.balance);
     }
 
@@ -108,15 +108,15 @@ public abstract class Account implements TimeManagerObserver, BankTermsListener 
      *
      * @param memento The AccountMemento to restore the state from.
      */
-    public void Restore(AccountMemento memento) {
+    public void restore(AccountMemento memento) {
         this.balance = memento.balance;
     }
 
     /**
      * Updates the balance of the account based on the percentage strategy.
      */
-    protected void UpdateBalance() {
-        this.balance = this.percentage.DoPercentageCalculations(this.balance);
+    protected void updateBalance() {
+        this.balance = this.percentage.doPercentageCalculations(this.balance);
     }
 
     /**
@@ -125,7 +125,7 @@ public abstract class Account implements TimeManagerObserver, BankTermsListener 
      * @param amount The amount to check for refill possibility.
      * @return true if refill is possible, false otherwise.
      */
-    public abstract boolean IsRefillPossible(BigDecimal amount);
+    public abstract boolean isRefillPossible(BigDecimal amount);
 
     /**
      * Checks if it's possible to withdraw the account balance by the specified amount.
@@ -133,7 +133,7 @@ public abstract class Account implements TimeManagerObserver, BankTermsListener 
      * @param amount The amount to check for withdraw possibility.
      * @return true if withdraw is possible, false otherwise.
      */
-    public abstract boolean IsWithdrawPossible(BigDecimal amount);
+    public abstract boolean isWithdrawPossible(BigDecimal amount);
 
     /**
      * Inner class representing a memento for storing the account's state.
